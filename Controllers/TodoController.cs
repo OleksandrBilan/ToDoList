@@ -47,7 +47,7 @@ namespace ToDoList.Controllers
             return CreatedAtRoute("GetTodoItem", new { id = todoItem.Id }, todoItem);
         }
 
-        [HttpPut("change/{id}")]
+        [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] TodoItem updatedTodoItem)
         {
             if (updatedTodoItem == null || updatedTodoItem.Id != id)
@@ -62,7 +62,7 @@ namespace ToDoList.Controllers
             }
 
             _todoRepository.Update(updatedTodoItem);
-            return RedirectToRoute("GetAllItems");
+            return new ObjectResult(todoItem);
         }
 
         [HttpDelete("delete/{id}")]
