@@ -37,6 +37,17 @@ namespace ToDoList
 
             services.AddDbContext<TodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddTransient<TodoRepository>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithExposedHeaders("Token-Expired", "InvalidRefreshToken", "InvalidCredentials")
+                    .WithOrigins("http://localhost:3000")
+                    .AllowCredentials()
+                    .Build());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +61,8 @@ namespace ToDoList
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 

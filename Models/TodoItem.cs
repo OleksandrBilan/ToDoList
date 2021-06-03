@@ -15,6 +15,6 @@ namespace ToDoList.Models
 
         public string Text { get; set; }
 
-        public DateTime Deadline { get; set; }
+        public string Deadline { get; set; }
     }
 }

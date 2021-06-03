@@ -19,6 +19,7 @@ namespace ToDoList
         {
             return _context.TodoItems;
         }
+
         public TodoItem Get(int Id)
         {
             return _context.TodoItems.Find(Id);
@@ -29,6 +30,7 @@ namespace ToDoList
             _context.TodoItems.Add(item);
             _context.SaveChanges();
         }
+
         public void Update(TodoItem updatedTodoItem)
         {
             TodoItem currentItem = Get(updatedTodoItem.Id);
