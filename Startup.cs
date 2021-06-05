@@ -37,6 +37,7 @@ namespace ToDoList
 
             services.AddDbContext<TodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddTransient<TodoRepository>();
+            services.AddTransient<TodoListService>();
 
             services.AddCors(options =>
             {

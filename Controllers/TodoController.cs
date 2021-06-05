@@ -10,23 +10,23 @@ namespace ToDoList.Controllers
     [Route("api/todo/tasks")]
     public class TodoController : Controller
     {
-        TodoRepository _todoRepository;
+        TodoListService _service;
 
-        public TodoController(TodoRepository todoRepository)
+        public TodoController(TodoListService service)
         {
-            _todoRepository = todoRepository;
+            _service = service;
         }
 
         [HttpGet(Name = "GetAllItems")]
         public IEnumerable<TodoItem> Get()
         {
-            return _todoRepository.Get();
+            return _service.GetAllItems();
         }
 
         [HttpGet("{id}", Name = "GetTodoItem")]
         public IActionResult Get(int id)
         {
-            TodoItem todoItem = _todoRepository.Get(id);
+            TodoItem todoItem = _service.GetItemById(id);
 
             if (todoItem == null)
             {
@@ -43,7 +43,8 @@ namespace ToDoList.Controllers
             {
                 return BadRequest();
             }
-            _todoRepository.Create(todoItem);
+
+            _service.AddItem(todoItem);
             return CreatedAtRoute("GetTodoItem", new { id = todoItem.Id }, todoItem);
         }
 
@@ -55,20 +56,20 @@ namespace ToDoList.Controllers
                 return BadRequest();
             }
 
-            var todoItem = _todoRepository.Get(id);
+            TodoItem todoItem = _service.GetItemById(id);
             if (todoItem == null)
             {
                 return NotFound();
             }
 
-            _todoRepository.Update(updatedTodoItem);
+            _service.EditItem(updatedTodoItem);
             return new ObjectResult(todoItem);
         }
 
         [HttpDelete("delete/{id}")]
         public IActionResult Delete(int id)
         {
-            var deletedTodoItem = _todoRepository.Delete(id);
+            TodoItem deletedTodoItem = _service.DeleteItem(id);
 
             if (deletedTodoItem == null)
             {

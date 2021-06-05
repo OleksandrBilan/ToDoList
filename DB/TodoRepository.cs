@@ -34,6 +34,11 @@ namespace ToDoList
         public void Update(TodoItem updatedTodoItem)
         {
             TodoItem currentItem = Get(updatedTodoItem.Id);
+            if (currentItem == null)
+            {
+                throw new ArgumentException("no item with such id");
+            }
+
             currentItem.State = updatedTodoItem.State;
             currentItem.Assignee = updatedTodoItem.Assignee;
             currentItem.Text = updatedTodoItem.Text;
@@ -46,12 +51,13 @@ namespace ToDoList
         public TodoItem Delete(int Id)
         {
             TodoItem todoItem = Get(Id);
-
-            if (todoItem != null)
+            if (todoItem == null)
             {
-                _context.TodoItems.Remove(todoItem);
-                _context.SaveChanges();
+                throw new ArgumentException("no item with such id");
             }
+
+            _context.TodoItems.Remove(todoItem);
+            _context.SaveChanges();
 
             return todoItem;
         }
