@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ToDoList.Models;
+using ToDoList.DB;
 
 namespace ToDoList
 {
@@ -36,7 +37,7 @@ namespace ToDoList
             });
 
             services.AddDbContext<TodoDBContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
-            services.AddTransient<TodoRepository>();
+            services.AddTransient<ITodoRepository, TodoRepository>();
             services.AddTransient<TodoListService>();
 
             services.AddCors(options =>

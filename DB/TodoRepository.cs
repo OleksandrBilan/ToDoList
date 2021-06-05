@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using ToDoList.Models;
 
-namespace ToDoList
+namespace ToDoList.DB
 {
-    public class TodoRepository
+    public class TodoRepository : ITodoRepository
     {
         private TodoDBContext _context;
 

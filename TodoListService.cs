@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoList.Models;
+using ToDoList.DB;
 
 namespace ToDoList
 {
     public class TodoListService
     {
-        private TodoRepository _repository;
+        private ITodoRepository _repository;
 
-        public TodoListService(TodoRepository repository)
+        public TodoListService(ITodoRepository repository)
         {
             if (repository == null)
             {

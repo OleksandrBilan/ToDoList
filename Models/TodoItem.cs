@@ -16,5 +16,16 @@ namespace ToDoList.Models
         public string Text { get; set; }
 
         public string Deadline { get; set; }
+
+        public TodoItem() { }
+
+        public TodoItem(int id, int state, string assignee, string text, string deadline)
+        {
+            Id = id;
+            State = state;
+            Assignee = assignee;
+            Text = text;
+            Deadline = deadline;
+        }
     }
 }
