@@ -5,20 +5,15 @@ using System.Threading.Tasks;
 using ToDoList.Models;
 using ToDoList.DB;
 
-namespace ToDoList
+namespace ToDoList.Services
 {
     public class TodoListService
     {
-        private ITodoRepository _repository;
+        private readonly ITodoRepository _repository;
 
         public TodoListService(ITodoRepository repository)
         {
-            if (repository == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            _repository = repository;
+            _repository = repository ?? throw new ArgumentNullException();
         }
 
         public IEnumerable<TodoItem> GetAllItems()

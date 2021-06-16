@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ToDoList.Models;
+using ToDoList.Services;
 
 namespace ToDoList.Controllers
 {
     [Route("api/todo/tasks")]
     public class TodoController : Controller
     {
-        TodoListService _service;
+        private readonly TodoListService _service;
 
         public TodoController(TodoListService service)
         {
